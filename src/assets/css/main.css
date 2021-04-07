@@ -1,0 +1,117 @@
+body{
+  margin: 30px 100px;
+  background-color: #f0f0f0;
+}
+
+.main-h1{
+  display: block;
+  width: 80%;
+}
+
+.workplace{
+  min-height: calc(100vh - 140px);
+  overflow-x: auto;
+}
+
+.card{
+  border: 1px solid #606c76;
+  border-radius: 5px;
+  width: 18%;
+  height: 100%;
+  padding: 1rem .5rem;
+  background-color: #fff;
+  position: relative;
+  margin-right: 10px;
+}
+
+.task{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+  background-color: lightsteelblue;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  word-break: break-all;
+  gap: 5px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.task .del{
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.button{
+  margin-left: 10px;
+  width: 18% !important;
+}
+.saveBtn{
+  position: absolute;
+  right: 60px;
+  top: 40px;
+}
+
+.cardControl{
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.cardControl div:first-child{
+  width: 90%;
+}
+.cardControl div:last-child{
+  font-size: 2.5rem;
+  margin-right: 5px;
+  line-height: 60%;
+}
+
+.inputBlock{
+  display: flex;
+  align-items: center;
+  border: 0.1rem solid #d1d1d1;
+  border-radius: .4rem;
+  height: 3.8rem;
+  padding: .6rem 1.0rem .7rem;
+}
+
+input{
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 10px 0 0!important;
+}
+
+.close{
+  display: inline-block;
+  cursor: pointer;
+}
+
+.hidden{
+  display: none;
+}
+
+.modal{
+  position: absolute;
+  top: calc(50% - 120px);
+  left: calc(50% - 200px);
+  width: 400px;
+  background-color: rgba(96, 108, 118, 0.05);
+  padding: 10px;
+  box-shadow: #9b4dca 0 0 10px 1px;
+  border-radius: 5px;
+  text-align: center;
+  transition: all .05s ease-in-out;
+}
+
+.btns{
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-between;
+}
+
+.modal .button{
+  margin: 0 5px!important;
+  width: 100% !important;
+}
