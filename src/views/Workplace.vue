@@ -48,7 +48,8 @@
       }
     },
     methods:{
-      addTask(title){
+      addTask(title) {
+        if (!this.columns) this.columns = []
         this.add = false
         this.columns.push({
           title,
