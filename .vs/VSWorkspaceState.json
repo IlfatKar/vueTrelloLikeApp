@@ -1,9 +1,14 @@
 {
   "ExpandedNodes": [
     "",
+    "\\public",
     "\\src",
-    "\\src\\store"
+    "\\src\\assets",
+    "\\src\\assets\\css",
+    "\\src\\components",
+    "\\src\\store",
+    "\\src\\views"
   ],
-  "SelectedNode": "\\src\\components",
+  "SelectedNode": "\\src\\background.js",
   "PreviewInSolutionExplorer": false
 }
