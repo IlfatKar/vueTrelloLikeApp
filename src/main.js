@@ -2,10 +2,10 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import firebase from 'firebase/app'
-import VueToast from 'vue-toast-notification';
-import './assets/css/main.css';
-import 'vue-toast-notification/dist/theme-default.css';
+import firebase from "firebase/app";
+import VueToast from "vue-toast-notification";
+import "./assets/css/main.css";
+import "vue-toast-notification/dist/theme-default.css";
 
 Vue.config.productionTip = false;
 
@@ -16,7 +16,7 @@ const firebaseConfig = {
   projectId: "trello-61724",
   storageBucket: "trello-61724.appspot.com",
   messagingSenderId: "362162602999",
-  appId: "1:362162602999:web:95075fb6295a18703824f2"
+  appId: "1:362162602999:web:95075fb6295a18703824f2",
 };
 
 firebase.initializeApp(firebaseConfig);

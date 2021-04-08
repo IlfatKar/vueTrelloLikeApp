@@ -1,19 +1,17 @@
 <template>
   <div>
     <div class="task" contenteditable="false">
-        {{value}}
+      {{ value }}
       <div class="del" contenteditable="false">&times;</div>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'Task',
-    props: ['value']
-  }
+export default {
+  name: "Task",
+  props: ["value"],
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
