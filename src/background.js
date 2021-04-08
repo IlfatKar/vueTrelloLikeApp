@@ -1,11 +1,12 @@
 "use strict";
 
-import { app, protocol, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, protocol } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
+
 const isDevelopment = process.env.NODE_ENV !== "production";
-const { dialog } = require('electron')
-var fs = require('fs');
+const { dialog } = require("electron");
+var fs = require("fs");
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -17,12 +18,15 @@ async function createWindow() {
   const win = new BrowserWindow({
     width: 1366,
     height: 768,
+    minWidth: 1024,
+    minHeight: 600,
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: true,
     },
   });
+  win.removeMenu()
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
@@ -79,17 +83,40 @@ if (isDevelopment) {
   }
 }
 
-ipcMain.on('saveFile', (e, arg) => {
+ipcMain.on("saveFile", (e, arg) => {
   const path = dialog.showSaveDialogSync({
-    filters: [{
-      name: '.json',
-      extensions: ['json']
-    }]
-  })
-  const obj = arg[0] || null
+    filters: [
+      {
+        name: ".json",
+        extensions: ["json"],
+      },
+    ],
+  });
+  const obj = arg || null;
   fs.writeFile(path, JSON.stringify(obj), (err) => {
-    if (err) throw err
-    console.log("Success")
-  })
-  
-})
+    if (err) {
+      e.returnValue = { status: "error", error: err };
+    } else {
+      e.returnValue = { status: "success" };
+    }
+  });
+});
+ipcMain.on("loadFile", (e) => {
+  const path = dialog.showOpenDialogSync({
+    filters: [
+      {
+        name: ".json",
+        extensions: ["json"],
+      },
+    ],
+    properties: ["openFile"],
+  });
+  fs.readFile(path[0], (err, data) => {
+    if (err) {
+      e.returnValue = { status: "error", error: err };
+    } else {
+      const res = JSON.parse(data.toString());
+      e.returnValue = { status: "success", res };
+    }
+  });
+});

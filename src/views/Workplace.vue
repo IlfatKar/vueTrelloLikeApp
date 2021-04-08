@@ -3,8 +3,10 @@
     <h1 class="main-h1">Система управления задачами и проектами</h1>
     <div class="workplace row">
       <Card
+        @changeColors="changeColors"
         @delTask="delTask"
         @addTask="addTask"
+        @changeTitle="changeTitle"
         :col="col"
         :idx="i"
         @delCol="delCol"
@@ -39,7 +41,7 @@ import ClickOutside from "vue-click-outside";
 import Card from "../components/Card";
 import CreateInput from "../components/CreateInput";
 import SaveModalWindow from "../components/SaveModalWindow";
-const { ipcRenderer } = window.require('electron')
+const { ipcRenderer } = window.require("electron");
 
 export default {
   name: "Workplace",
@@ -53,30 +55,36 @@ export default {
   components: { SaveModalWindow, CreateInput, Card },
   async mounted() {
     const key = this.$route.params.id;
-    if (key) {
-      try {
-        await this.$store.dispatch("getTasks", key);
-        this.columns = this.$store.getters.columns;
-      } catch (e) {
-        this.$toast.open({
-          message: e.message,
-          type: "error",
-          position: "top-right",
-        });
-      }
+    if (key === "new") {
+      this.columns = [];
     } else {
-      this.columns = JSON.parse(localStorage.getItem("columns"));
+      if (key) {
+        try {
+          await this.$store.dispatch("getTasks", key);
+          this.columns = this.$store.getters.columns;
+        } catch (e) {
+          this.$toast.open({
+            message: e.message,
+            type: "error",
+            position: "top-right",
+          });
+        }
+      } else {
+        this.columns = this.$store.getters.columns;
+        if (!this.columns || !this.columns.length) {
+          this.columns = JSON.parse(localStorage.getItem("columns")) || [];
+        }
       }
-      if (!this.columns) this.columns = []
+    }
   },
   methods: {
     addTask({ task, col }) {
-      const idx = this.columns[col].tasks.length
+      const idx = this.columns[col].tasks.length;
       this.columns[col].tasks.push({
         value: task,
         idx,
-      })
-    },  
+      });
+    },
     addColumn(title) {
       this.add = false;
       this.columns.push({
@@ -96,7 +104,7 @@ export default {
         message: "Сохранено локально",
         position: "top-right",
       });
-      this.close();
+      this.needSave = false
     },
     async saveOnline() {
       const key = await this.$store.dispatch("saveTasks", this.columns);
@@ -104,7 +112,7 @@ export default {
         message: `Сохранено по ссылке: ${document.location.origin}/workplace/${key}`,
         position: "top-right",
       });
-      this.close();
+      this.needSave = false
     },
     close(e) {
       if (e && this.needSave && !e.target.dataset.savebtn) {
@@ -112,12 +120,31 @@ export default {
       }
     },
     delTask({ col, idx }) {
-      this.columns[col].tasks.splice(+idx, 1)
+      this.columns[col].tasks.splice(+idx, 1);
     },
     saveFile() {
-      ipcRenderer.send('saveFile', this.columns)
-      this.close();
+      const res = ipcRenderer.sendSync("saveFile", this.columns);
+      if (res.status !== "error") {
+        this.$toast.open({
+          message: "Сохранено",
+          position: "top-right",
+        });
+      } else {
+        this.$toast.open({
+          message: "Ошибка",
+          position: "top-right",
+          type: "error",
+        });
+      }
+      this.needSave = false
     },
+    changeTitle({ title, idx }) {
+      this.columns[idx].title = title;
+    },
+    changeColors({bg, text, idx, col}){
+      this.columns[col].tasks[idx].bg = bg
+      this.columns[col].tasks[idx].text = text
+    }
   },
   directives: {
     ClickOutside,

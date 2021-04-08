@@ -21,10 +21,12 @@ export default new Vuex.Store({
       return ref.key;
     },
     async getTasks({ commit }, id) {
-      const data = (
-        await firebase.database().ref(`/tasks/${id}`).once("value")
-      ).val();
-      commit("columns", data);
+      if(id){
+        const data = (
+            await firebase.database().ref(`/tasks/${id}`).once("value")
+        ).val();
+        commit("columns", data);
+      }
     },
   },
   getters: {

@@ -1,19 +1,19 @@
-body{
+body {
   margin: 30px 100px;
   background-color: #f0f0f0;
 }
 
-.main-h1{
+.main-h1 {
   display: block;
   width: 80%;
 }
 
-.workplace{
+.workplace {
   min-height: calc(100vh - 140px);
   overflow-x: auto;
 }
 
-.card{
+.card {
   border: 1px solid #606c76;
   border-radius: 5px;
   width: 18%;
@@ -24,10 +24,10 @@ body{
   margin-right: 10px;
 }
 
-.task{
+.task {
   display: flex;
   justify-content: space-between;
-  padding: 0 5px;
+  padding: 2px 5px;
   background-color: lightsteelblue;
   border-radius: 5px;
   margin-bottom: 5px;
@@ -35,51 +35,59 @@ body{
   gap: 5px;
   cursor: pointer;
   align-items: center;
+  transition: all .5s ease-in-out;
 }
 
-.task .del{
+.task .del {
+  display: inline-block;
+  margin-top: -5px;
   cursor: pointer;
   font-size: 25px;
 }
 
-.button{
+.button {
   margin-left: 10px;
-  width: 18% !important;
+  width: auto;
+  text-align: center;
 }
-.saveBtn{
+
+.saveBtn {
   position: absolute;
   right: 60px;
   top: 80px;
+  min-width: 18%;
 }
 
 .backBtn {
-    top: 30px !important;
+  padding: 0;
+  top: 30px !important;
 }
 
-.backBtn a{
-    color: white;
-    display: block;
-    width: 100%;
-    height: 100%;
+.backBtn a {
+  color: white;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-.cardControl{
+.cardControl {
   display: flex;
   justify-content: space-between;
   cursor: pointer;
   margin-bottom: 5px;
 }
 
-.cardControl div:first-child{
+.cardControl div:first-child {
   width: 90%;
 }
-.cardControl div:last-child{
+
+.cardControl div:last-child {
   font-size: 2.5rem;
   margin-right: 5px;
   line-height: 60%;
 }
 
-.inputBlock{
+.inputBlock {
   display: flex;
   align-items: center;
   border: 0.1rem solid #d1d1d1;
@@ -88,27 +96,27 @@ body{
   padding: .6rem 1.0rem .7rem;
 }
 
-input{
+input {
   border: 0 !important;
   padding: 0 !important;
-  margin: 0 10px 0 0!important;
+  margin: 0 10px 0 0 !important;
 }
 
-.close{
+.close {
   display: inline-block;
   cursor: pointer;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.modal{
+.modal {
   position: absolute;
   top: calc(50% - 120px);
   left: calc(50% - 250px);
   width: 500px;
-  background-color: rgba(96, 108, 118, 0.05);
+  background-color: #ffffff;
   padding: 10px;
   box-shadow: #9b4dca 0 0 10px 1px;
   border-radius: 5px;
@@ -116,26 +124,48 @@ input{
   transition: all .05s ease-in-out;
 }
 
-.btns{
+.btns {
   display: flex;
   margin-top: 30px;
   justify-content: space-between;
 }
 
-.modal .button{
-  margin: 0 5px!important;
+.modal .button {
+  margin: 0 5px !important;
   width: 100% !important;
 }
-.home{
-    width: 100%;
+
+.home {
+  width: 100%;
 }
 
-.home .nav{
-    line-height: 80px;
-    font-size: 2rem;
-    width:30%;
-    position: absolute;
-    right: 0;
-    height: 100%;
-    top: calc(50% - 200px);
+.home .nav {
+  line-height: 80px;
+  font-size: 2rem;
+  width: 30%;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 200px);
+  font-weight: bold;
+}
+
+.input-modal{
+  width: 300px;
+}
+
+.input-modal input{
+  box-shadow: #9b4dca 0 0 5px 1px;
+  margin-bottom: 10px!important;
+  padding: 5px!important;
+}
+
+.input-modal .button{
+  margin: 0!important;
+}
+
+.home p{
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #9b4dca;
 }

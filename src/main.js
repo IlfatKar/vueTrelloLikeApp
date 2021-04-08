@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import firebase from "firebase/app";
 import VueToast from "vue-toast-notification";
+import contenteditable from "vue-contenteditable";
 import "./assets/css/main.css";
 import "vue-toast-notification/dist/theme-default.css";
 
@@ -28,3 +29,4 @@ new Vue({
 }).$mount("#app");
 
 Vue.use(VueToast);
+Vue.use(contenteditable);
