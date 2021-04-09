@@ -141,12 +141,18 @@ input {
 
 .home .nav {
   line-height: 80px;
-  font-size: 2rem;
+  font-size: 2.5rem;
   width: 30%;
   position: absolute;
   right: 0;
   top: calc(50% - 200px);
-  font-weight: bold;
+  font-weight: bold; 
+}
+
+.home .nav .button-outline{
+    width:300px;
+    margin: 0;
+    font-size: 1.5rem;
 }
 
 .input-modal{
@@ -168,4 +174,12 @@ input {
   padding: 0;
   cursor: pointer;
   color: #9b4dca;
+}
+
+.home img{
+    position: absolute;
+    left: 10%;
+    top: 25%;
+    height: 50%;
+
 }
