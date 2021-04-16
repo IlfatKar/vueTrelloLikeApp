@@ -11,17 +11,16 @@
       <div @click="delCol">&times;</div>
     </div>
     <div class="tasks">
-      <Task
-        @changeColors="changeColors"
-        @delTask="delTask"
-        :col="idx"
-        :value="task.value"
-        :bg="task.bg"
-        :text="task.text"
-        :idx="i"
-        v-for="(task, i) in col.tasks"
-        :key="i"
-      />
+      <draggable v-model="cols.tasks" @change="checkMove" group="tasks" @start="drag=true" @end="drag=false">
+        <Task @changeColors="changeColors"
+              @delTask="delTask"
+              :col="idx"
+              :value="task.value"
+              :idx="task.idx"
+              v-for="task in cols.tasks"
+              :key="task.idx" />
+      </draggable>
+     
     </div>
     <div class="addTask inputBlock">
       <input placeholder="Добавить задачу" v-model.trim="task" type="text" />
@@ -31,23 +30,30 @@
 </template>
 
 <script>
-import Task from "./Task";
+  import Task from "./Task";
+  import draggable from 'vuedraggable'
 export default {
   name: "Card",
   data() {
     return {
+      cols: this.col,
       task: "",
       title: this.col.title,
     };
   },
-  components: { Task },
-  props: ["col", "idx"],
+    components: { Task, draggable },
+    props: ["col", "idx"],
   watch: {
     title() {
       this.$emit("changeTitle", { title: this.title, idx: this.idx });
     },
   },
-  methods: {
+    methods: {
+      checkMove() {
+        this.cols.tasks.forEach((el, i) => {
+          el.idx = i;
+        });
+    },
     delCol() {
       this.$emit("delCol", this.idx);
     },

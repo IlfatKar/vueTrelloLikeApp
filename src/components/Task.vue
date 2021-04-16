@@ -1,11 +1,24 @@
 <template>
   <div>
     <transition name="fade">
-      <div @click="changeColor" :style="{background: bgColor, color:textColor}" class="task" contenteditable="false">
+      <div @click="showSettings = !showSettings" :style="{background: bgColor, color:textColor}" class="task" contenteditable="false">
         {{ value }}
         <div @click="delTask" class="del" contenteditable="false">&times;</div>
       </div>
     </transition>
+    <transition name="dropdown">
+      <div class="settings" v-show="showSettings">
+        <div>
+          <label for="bg-color">bg color</label>
+          <input @change="changeColor" type="color" v-model="bgColor" id="bg-color" />
+        </div>
+        <div>
+          <label for="text-color">text color</label>
+          <input @change="changeColor" type="color" v-model="textColor" id="text-color" />
+        </div>
+      </div>
+    </transition>
+    
   </div>
 </template>
 
@@ -14,30 +27,19 @@ export default {
   name: "Task",
   data(){
     return{
-      colors: [['lightsteelblue', '#606c76'], ['#9b4dca', 'white'], ['red', 'black'], ['black', 'white']],
-      colorIdx: 0,
+      showSettings: false,
       bgColor: this.bg,
       textColor: this.text,
       forward: true,
     }
   },
-  props: ["value", "idx", "col", "bg", "text"],
+  props: ["value", "idx", "col"],
   methods: {
     delTask() {
       this.$emit("delTask", { idx: this.idx, col: this.col });
     },
-    changeColor(){
-      if(this.forward){
-        this.colorIdx++
-      } else {
-        this.colorIdx--
-      }
-      this.bgColor = this.colors[this.colorIdx][0]
-      this.textColor = this.colors[this.colorIdx][1]
-      if(this.colorIdx === 0 || this.colorIdx === this.colors.length - 1){
-        this.forward = !this.forward
-      }
-      this.$emit('changeColors', {bg: this.colors[this.colorIdx][0], text: this.colors[this.colorIdx][1], idx: this.idx, col:this.col})
+    changeColor() {
+        this.$emit("changeColor", { bg: this.bgColor, text: this.textColor, idx: this.idx, col: this.col });
     },
   },
 };
