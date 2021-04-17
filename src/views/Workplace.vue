@@ -111,7 +111,7 @@ export default {
     async saveOnline() {
       const key = await this.$store.dispatch("saveTasks", this.columns);
       this.$toast.open({
-        message: `Сохранено по ссылке: ${document.location.origin}/workplace/${key}`,
+        message: `Сохранено ID ${key}`,
         position: "top-right",
       });
       this.needSave = false;
