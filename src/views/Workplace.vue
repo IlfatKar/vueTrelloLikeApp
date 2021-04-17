@@ -78,10 +78,12 @@ export default {
     }
   },
   methods: {
-    addTask({ task, col }) {
+    addTask({ task, col, bg, text }) {
       const idx = this.columns[col].tasks.length;
       this.columns[col].tasks.push({
         value: task,
+        bg,
+        text,
         idx,
       });
     },
@@ -104,7 +106,7 @@ export default {
         message: "Сохранено локально",
         position: "top-right",
       });
-      this.needSave = false
+      this.needSave = false;
     },
     async saveOnline() {
       const key = await this.$store.dispatch("saveTasks", this.columns);
@@ -112,7 +114,7 @@ export default {
         message: `Сохранено по ссылке: ${document.location.origin}/workplace/${key}`,
         position: "top-right",
       });
-      this.needSave = false
+      this.needSave = false;
     },
     close(e) {
       if (e && this.needSave && !e.target.dataset.savebtn) {
@@ -136,15 +138,15 @@ export default {
           type: "error",
         });
       }
-      this.needSave = false
+      this.needSave = false;
     },
     changeTitle({ title, idx }) {
       this.columns[idx].title = title;
     },
-    changeColors({bg, text, idx, col}){
-      this.columns[col].tasks[idx].bg = bg
-      this.columns[col].tasks[idx].text = text
-    }
+    changeColors({ bg, text, idx, col }) {
+      this.columns[col].tasks[idx].bg = bg;
+      this.columns[col].tasks[idx].text = text;
+    },
   },
   directives: {
     ClickOutside,
