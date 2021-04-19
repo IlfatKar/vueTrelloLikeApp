@@ -10,13 +10,14 @@ body {
 
 .workplace {
   min-height: calc(100vh - 140px);
-  overflow-x: auto;
+  margin-top: 55px;
 }
 
 .card {
   border: 1px solid #606c76;
   border-radius: 5px;
   width: 18%;
+  min-width: 200px;
   height: 100%;
   padding: 1rem .5rem;
   background-color: #fff;
@@ -36,6 +37,8 @@ body {
   cursor: pointer;
   align-items: center;
   transition: all .5s ease-in-out;
+  border: 1px solid rgba(28, 34, 255, 0.16);
+  box-shadow: 1px 1px 1px 1px rgba(28, 34, 255, 0.16);
 }
 
 .task .del {
@@ -94,6 +97,7 @@ body {
   border-radius: .4rem;
   height: 3.8rem;
   padding: .6rem 1.0rem .7rem;
+  min-width: 180px;
 }
 
 input {

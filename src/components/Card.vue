@@ -26,8 +26,8 @@
           :idx="task.idx"
           :bg="task.bg"
           :text="task.text"
-          v-for="task in cols.tasks"
-          :key="task.value"
+          v-for="(task, i) in cols.tasks"
+          :key="task.value + '-' + i + '-'+cols.tasks.length"
         />
       </draggable>
     </div>

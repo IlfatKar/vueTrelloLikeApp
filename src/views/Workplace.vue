@@ -10,7 +10,7 @@
         :col="col"
         :idx="i"
         @delCol="delCol"
-        :key="i"
+        :key="i + '-' + col.title + '-' + columns.length"
         v-for="(col, i) in columns"
       />
       <CreateInput @added="addColumn" v-show="add" />

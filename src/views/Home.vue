@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Доброе утро</h1>
+    <h1>Доброе пожаловать</h1>
     <div>
       <img src="../assets/img/book.svg" />
     </div>
