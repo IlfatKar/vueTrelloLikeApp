@@ -29,7 +29,6 @@
         v-click-outside="close"
         @saveLocal="saveLocal"
         @saveOnline="saveOnline"
-        @saveFile="saveFile"
         v-show="needSave"
       />
     </transition>
@@ -41,7 +40,6 @@ import ClickOutside from "vue-click-outside";
 import Card from "../components/Card";
 import CreateInput from "../components/CreateInput";
 import SaveModalWindow from "../components/SaveModalWindow";
-const { ipcRenderer } = window.require("electron");
 
 export default {
   name: "Workplace",
@@ -123,22 +121,6 @@ export default {
     },
     delTask({ col, idx }) {
       this.columns[col].tasks.splice(+idx, 1);
-    },
-    saveFile() {
-      const res = ipcRenderer.sendSync("saveFile", this.columns);
-      if (res.status !== "error") {
-        this.$toast.open({
-          message: "Сохранено",
-          position: "top-right",
-        });
-      } else {
-        this.$toast.open({
-          message: "Ошибка",
-          position: "top-right",
-          type: "error",
-        });
-      }
-      this.needSave = false;
     },
     changeTitle({ title, idx }) {
       this.columns[idx].title = title;

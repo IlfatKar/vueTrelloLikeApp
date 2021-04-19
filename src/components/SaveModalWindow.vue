@@ -4,7 +4,6 @@
     <div class="btns">
       <button class="button" @click="saveLocal">Локально</button>
       <button class="button" @click="saveOnline">Удаленно</button>
-      <button class="button" @click="saveFile">Сохранить как</button>
     </div>
   </div>
 </template>
@@ -19,9 +18,6 @@ export default {
     saveOnline() {
       this.$emit("saveOnline");
     },
-    saveFile() {
-      this.$emit("saveFile");
-    }
   },
 };
 </script>

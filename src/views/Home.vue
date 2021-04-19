@@ -14,9 +14,6 @@
       <div>
         <p @click="showModal = true" class="button  button-outline" data-noclose="true">Открыть по ID</p>
       </div>
-      <div>
-        <p @click="loadFile" class="button button-outline">Загрузить файл</p>
-      </div>
     </div>
     <transition name="fade">
       <InputModal v-click-outside="close" @loadById="loadById" v-show="showModal" />
@@ -27,7 +24,6 @@
 <script>
 import InputModal from '../components/InputModal'
 import ClickOutside from 'vue-click-outside'
-const { ipcRenderer } = window.require('electron')
 
 export default {
   name: "Home",
@@ -53,20 +49,6 @@ export default {
       if (e && this.showModal && !e.target.dataset.noclose) {
         this.showModal = false;
       }
-    },
-    loadFile() {
-      const data = ipcRenderer.sendSync("loadFile");
-      if(data.status !== 'error'){
-        this.$store.commit('columns', data.res)
-        this.$router.push('/workplace')
-      } else {
-        this.$toast.open({
-          message:"ошибка",
-          type: 'error',
-          position: 'top-right',
-        })
-      }
-
     },
   },
   directives: {
